@@ -37,11 +37,11 @@ To mess with data:
 - yearsOperating
 
 #### Inspection-related
-- hasInspections (bool)
+- hasInspections *(bool)*
 - latestInspectionDate
-- latestInspectionResult **(e.g. passed, didn't pass)**
+- latestInspectionResult *(e.g. passed, didn't pass)*
 - latestInspectionInfractions
-- numberCurrentInfractions **(realize wrongly-named, but also probably doesn't need to exist?)**
+- numberCurrentInfractions *(realize wrongly-named, but also probably doesn't need to exist?)*
 
 
 
