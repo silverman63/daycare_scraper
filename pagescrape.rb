@@ -52,7 +52,7 @@ def pagescrape(page)
 
 		daycare['numberCurrentInfractions'] = currentInfractions.length
 
-		infractions = []
+		daycare['infractions'] = []
 		currentInfractions.each do |infract|
 			data = {}
 			i = 0
@@ -61,6 +61,7 @@ def pagescrape(page)
 				data[tableHeaders[i]] = section.text
 				i += 1
 			end
+			daycare['infractions'].push(data)
 		end
 
 		puts "daycare has #{ daycare['numberCurrentInfractions'] } violations"
