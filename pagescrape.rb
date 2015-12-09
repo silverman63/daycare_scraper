@@ -23,7 +23,7 @@ def pagescrape(page)
 	daycare['ageRange'] = moreboxData[3].search('h5')[1].text
 	daycare['maximumCapacity'] = moreboxData[4].search('h5')[1].text
 	daycare['siteType'] = moreboxData[5].search('h5')[1].text
-	daycare['certrm ifiedToAdministerMedication'] = moreboxData[6].search('h5')[1].text
+	daycare['certifiedToAdministerMedication'] = moreboxData[6].search('h5')[1].text
 	daycare['yearsOperating'] = moreboxData[7].search('h5')[1].text
 
 	#performanceHistorySections = page.search('.row-fluid .span12 .dashWidget ul.nav.nav-tabs li')
@@ -52,13 +52,13 @@ def pagescrape(page)
 
 		daycare['numberCurrentInfractions'] = currentInfractions.length
 
-		daycare['infractions'] = []
+		daycare['latestInspectionInfractions'] = []
 		currentInfractions.each do |infract|
 			data = {}
 			i = 0
 			sections = infract.search('td')
 			sections.each do | section|
-				data[tableHeaders[i]] = section.text
+				data[tableHeaders[i]] = String(section.text)
 				i += 1
 			end
 			daycare['infractions'].push(data)
@@ -69,6 +69,10 @@ def pagescrape(page)
 	else
 		daycare['hasInspections'] = false
 		puts "daycare has had no inspections"
+		daycare['latestInspectionDate'] = nil
+		daycare['latestInspectionResult'] = nil
+		daycare['latestInspectionInfractions'] = nil
+		daycare['numberCurrentInfractions'] = nil
 	end
 
 	return daycare
