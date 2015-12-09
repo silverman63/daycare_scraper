@@ -41,7 +41,7 @@ def pagescrape(page)
 
 		tableHeaders = infractionTable.search('table tr.odd th')
 		headers = []
-		headers.each do |header|
+		tableHeaders.each do |header|
 			headers.push(header.text)
 		end
 
@@ -58,10 +58,11 @@ def pagescrape(page)
 			i = 0
 			sections = infract.search('td')
 			sections.each do | section|
-				data[tableHeaders[i]] = String(section.text)
+				sectionContent = String(section.text).gsub(/[^\w\s\-\/]/, "").gsub(/\r?\n|\r/,"")
+				data[headers[i]] = sectionContent
 				i += 1
 			end
-			daycare['infractions'].push(data)
+			daycare['latestInspectionInfractions'].push(data)
 		end
 
 		puts "daycare has #{ daycare['numberCurrentInfractions'] } violations"
