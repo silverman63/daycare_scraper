@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'mechanize'
 require 'csv'
+require 'json'
 require_relative 'pagescrape.rb'
 
 def scraper
@@ -34,14 +35,13 @@ def scraper
 	page = form.submit
 	agent1.cookie_jar.save_as 'cookies', :session => true, :format => :yaml
 
-	while offset < 10 do #  < 10 for testing, 2300 at least for real
+	while offset < 2300 do #  < 10 for testing, 2300 at least for real
 		puts "Offset: " + offset.to_s
 		page = agent1.post 'https://a816-healthpsi.nyc.gov/ChildCare/SearchAction2.do?pager.offset=' + offset.to_s, form_data
 
 		links = page.search('tr.gradeX.odd a')
-
+		file_i = offset
 		links.each do |link|
-
 			id = link.to_s()
 			id = id.split('redirectHistory(')[1]
 			id = id[0,10]
@@ -55,7 +55,13 @@ def scraper
 
 			page2 = agent2.post 'https://a816-healthpsi.nyc.gov/ChildCare/WDetail.do', idString ,({'Content-Type' => 'application/x-www-form-urlencoded'})
 			daycare = pagescrape(page2)	
+			
+			File.open("json/#{ file_i }.json","w") do |f|
+			  f.write(JSON.pretty_generate(daycare))
+			end
+
 			daycares.push(daycare)
+			file_i += 1
 
 		end
 

@@ -32,12 +32,13 @@ def pagescrape(page)
 	
 	if !latestSections.empty? 
 		daycare['hasInspections'] = true
+		daycare['latestInspection'] = {}
 		latestInspectionInfo = latestSections[0]
 		infractionTable = latestSections[1]
 
 		latestInspectionData = latestInspectionInfo.search('tr')
-		daycare['latestInspectionDate'] = latestInspectionData[0]
-		daycare['latestInspectionResult'] = latestInspectionData[1]
+		daycare['latestInspection']['date'] = latestInspectionData[0]
+		daycare['latestInspection']['result'] = latestInspectionData[1]
 
 		tableHeaders = infractionTable.search('table tr.odd th')
 		headers = []
@@ -50,9 +51,9 @@ def pagescrape(page)
 			currentInfractions = []
 		end
 
-		daycare['numberCurrentInfractions'] = currentInfractions.length
+		daycare['latestInspection']['numInfractions'] = currentInfractions.length
 
-		daycare['latestInspectionInfractions'] = []
+		daycare['latestInspection']['infractions'] = []
 		currentInfractions.each do |infract|
 			data = {}
 			i = 0
@@ -62,18 +63,19 @@ def pagescrape(page)
 				data[headers[i]] = sectionContent
 				i += 1
 			end
-			daycare['latestInspectionInfractions'].push(data)
+			daycare['latestInspection']['infractions'].push(data)
 		end
 
-		puts "daycare has #{ daycare['numberCurrentInfractions'] } violations"
+		puts "daycare has #{ daycare['latestInspection']['numInfractions'] } violations"
 
 	else
 		daycare['hasInspections'] = false
+		daycare['latestInspection'] = {}
 		puts "daycare has had no inspections"
-		daycare['latestInspectionDate'] = nil
-		daycare['latestInspectionResult'] = nil
-		daycare['latestInspectionInfractions'] = nil
-		daycare['numberCurrentInfractions'] = nil
+		daycare['latestInspection']['date'] = nil
+		daycare['latestInspection']['result'] = nil
+		daycare['latestInspection']['infractions'] = nil
+		daycare['latestInspection']['numInfractions'] = nil
 	end
 
 	return daycare
