@@ -9,8 +9,6 @@ def scraper
 	agent1 = Mechanize.new
 	agent2 = Mechanize.new
 
-	fields = "centerName,permitHolder,address,borough,phone,zipCode,permitNumber,permitExpirationDate,permitStatus,ageRange,maximumCapacity,certifiedToAdministerMedication,siteType".split(',')
-
 	# output = File.new("output2.csv","w")
 	# output.print("centerName,permitHolder,address,borough,phone,zipCode,permitNumber,permitExpirationDate,permitStatus,ageRange,maximumCapacity,certifiedToAdministerMedication,siteType")
 	# output.print("\n")
@@ -55,8 +53,8 @@ def scraper
 
 			page2 = agent2.post 'https://a816-healthpsi.nyc.gov/ChildCare/WDetail.do', idString ,({'Content-Type' => 'application/x-www-form-urlencoded'})
 			daycare = pagescrape(page2)	
-			
-			File.open("json/#{ file_i }.json","w") do |f|
+			filename = file_i.to_s.rjust(2, "0")
+			File.open("json/#{ filename }.json","w") do |f|
 			  f.write(JSON.pretty_generate(daycare))
 			end
 
@@ -65,10 +63,12 @@ def scraper
 
 		end
 
-	offset = offset + 10
-
-	return daycares
+		offset = offset + 10
 
 	end
 
+	return daycares
+
 end
+
+scraper

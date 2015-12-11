@@ -66,7 +66,7 @@ def pagescrape(page)
 			daycare['latestInspection']['infractions'].push(data)
 		end
 
-		puts "daycare has #{ daycare['latestInspection']['numInfractions'] } violations"
+		# puts "daycare has #{ daycare['latestInspection']['numInfractions'] } violations"
 
 	else
 		daycare['hasInspections'] = false
