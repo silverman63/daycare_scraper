@@ -12,7 +12,7 @@
   "ageRange": "0 - 2",
   "maximumCapacity": "10",
   "siteType": "Private",
-  "certifiedToAdministerMedication": "No",
+  "certifiedToAdministerMedication": "Yes",
   "yearsOperating": "2         ",
   "hasInspections": true,
   "latestInspection": {

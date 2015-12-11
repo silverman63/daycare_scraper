@@ -71,7 +71,7 @@ def pagescrape(page)
 	else
 		daycare['hasInspections'] = false
 		daycare['latestInspection'] = {}
-		puts "daycare has had no inspections"
+		# puts "daycare has had no inspections"
 		daycare['latestInspection']['date'] = nil
 		daycare['latestInspection']['result'] = nil
 		daycare['latestInspection']['infractions'] = nil

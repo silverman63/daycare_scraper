@@ -67,6 +67,9 @@ def scraper
 
 	end
 
+	File.open("json/daycares.json", "w") do |f|
+		f.write(JSON.pretty_generate(daycares))
+	end
 	return daycares
 
 end
