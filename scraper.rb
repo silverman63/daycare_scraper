@@ -33,7 +33,7 @@ def scraper
 	page = form.submit
 	agent1.cookie_jar.save_as 'cookies', :session => true, :format => :yaml
 
-	while offset < 2300 do #  < 10 for testing, 2300 at least for real
+	while offset < 10 do #  < 10 for testing, 2300 at least for real
 		puts "Offset: " + offset.to_s
 		page = agent1.post 'https://a816-healthpsi.nyc.gov/ChildCare/SearchAction2.do?pager.offset=' + offset.to_s, form_data
 
