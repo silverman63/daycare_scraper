@@ -103,7 +103,7 @@ def pagescrape(page)
 
 	# older inspections
 	if !latestSections.empty? 
-		inspectionsTable = page.search('#5 > div.accordion')
+		inspectionsTable = page.search('#5 > div.accordion')[0]
 		inspections = inspectionsTable.search('.accordion')
 		puts "num inspections is #{ inspections.length }"
 	end
