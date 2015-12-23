@@ -100,13 +100,20 @@ def pagescrape(page)
 		daycare['latestInspection']['numInfractions'] = nil
 	end
 
+	# end latest inspection
+	# begin for older inspections
 
-	# older inspections
 	if !latestSections.empty? 
-		inspectionsTable = page.search('#5 > div.accordion')[0]
-		inspections = inspectionsTable.search('.accordion')
-		puts "num inspections is #{ inspections.length }"
+		inspectionsTable = page.search('#5 > div.accordion')
+		inspections = inspectionsTable.search('.accordion-group')
+		daycare['numInspections'] = inspections.length + 1 # the latest inspection is in seperate tab
+		daycare['pastInspections'] = inspections
+	else
+		daycare['numInspections'] = 0
+		daycare['pastInspections'] = nil
 	end
+
+	# end older inspections
 
 
 	cleanup(daycare)

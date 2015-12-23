@@ -20,5 +20,7 @@
     "result": "",
     "infractions": "",
     "numInfractions": ""
-  }
+  },
+  "numInspections": "0",
+  "pastInspections": ""
 }
